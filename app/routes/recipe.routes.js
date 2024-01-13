@@ -14,8 +14,6 @@ module.exports = app => {
     // Create a new Recipe
     router.post("/", recipes.createRecipe);
 
-    router.post("/origines", recipes.createOrigine);
-
     // Find all recipes which name contains ‘tacos’: GET /recipes?name=tacos
     // Retrieve all recipes by name (Query)
     router.get("/", recipes.findRecipesByName);

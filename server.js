@@ -83,6 +83,7 @@ db.mongoose
    We also need to include routes in server.js (right before app.listen()): */
 // Routes definition :
 require("./app/routes/recipe.routes")(app);
+require("./app/routes/origine.routes")(app);
 
 // ________________________________________________________________________________________________
 // Configuration du port et démarrage du serveur :
