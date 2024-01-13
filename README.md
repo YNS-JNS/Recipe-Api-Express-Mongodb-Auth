@@ -84,11 +84,47 @@ Example API response:
 
 [
   {
-    "id": "1",
-    "name": "Spaghetti Bolognese",
-    "ingredients": ["ground beef", "tomatoes", "spaghetti"],
-    "instructions": "Cook ground beef, add tomatoes, serve over cooked spaghetti."
-  },
+            "name": "Moroccan Couscous",
+            "origine": 1,
+            "ingredients": [
+                "couscous",
+                "chickpeas",
+                "lamb",
+                "carrots",
+                "zucchini",
+                "onions",
+                "tomatoes",
+                "garlic",
+                "olive oil",
+                "coriander",
+                "cumin",
+                "turmeric",
+                "cinnamon",
+                "salt",
+                "pepper"
+            ],
+            "description": "A flavorful and aromatic Moroccan couscous dish with a mix of vegetables and tender lamb.",
+            "published": true,
+            "createdAt": "2024-01-13T18:40:53.781Z",
+            "updatedAt": "2024-01-13T18:40:53.781Z",
+            "id": "65a2d9354453af1d7ee3638b"
+        },
+        {
+            "name": "Sushi Rolls",
+            "origine": 5,
+            "ingredients": [
+                "rice",
+                "fish",
+                "seaweed",
+                "avocado",
+                "soy sauce"
+            ],
+            "description": "Japanese sushi rolls with fresh ingredients",
+            "published": true,
+            "createdAt": "2024-01-13T18:41:50.033Z",
+            "updatedAt": "2024-01-13T18:41:50.033Z",
+            "id": "65a2d96e4453af1d7ee36397"
+        },
   // More recipes...
 ]
 ```
