@@ -71,10 +71,10 @@ Before you begin, ensure you have met the following requirements:
    
 7. **Endpoints**
 
-/api/recipes: GET, POST, DELETE
-/api/recipes/:id: GET, PUT, DELETE
-/api/recipes/published: GET
-/api/origines/: POST
+- /api/recipes: GET, POST, DELETE
+- /api/recipes/:id: GET, PUT, DELETE
+- /api/recipes/published: GET
+- /api/origines/: POST
 
 8. **Example API request:**
 
