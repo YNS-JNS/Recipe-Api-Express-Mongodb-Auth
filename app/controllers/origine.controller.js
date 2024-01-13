@@ -34,3 +34,29 @@ exports.createOrigine = (req, res) => {
             })
         });
 }
+
+// ________________________________________________________________________________________________
+// Get all Origine Category
+exports.getAllOrigines = (req, res) => {
+
+    OrigineModel.find()
+        .then(origines => {
+
+            if (!origines) {
+                return res.status(404).json({
+                    message: "Maybe your database is empty!"
+                })
+            }
+
+            res.status(200).json({
+                message: "successfully",
+                data: origines
+            })
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Some error occurred while retrieving recipes.",
+                error: err.message
+            })
+        });
+}

@@ -23,6 +23,9 @@ These functions will be used in our Controller.
 
 const db = require("../models");
 const RecipeModel = db.recipe;
+const OrigineModel = db.origine;
+// const OrigineModel = require("../models/origine.model")(db.mongoose);
+
 
 // ________________________________________________________________________________________________
 
@@ -36,7 +39,7 @@ exports.createRecipe = (req, res) => {
     }
 
     // Check if the origine exist or not
-    OrigineModel.findOne({ origine: req.body.origine })
+    OrigineModel.findOne({ origineId: req.body.origine })
         .then((origine) => {
             // If not exist
             if (!origine) {

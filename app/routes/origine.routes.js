@@ -5,6 +5,7 @@ module.exports = app => {
 
 
     router.post("/", origine.createOrigine);
+    router.get("/", origine.getAllOrigines);
 
     app.use('/api/origines', router);
 
