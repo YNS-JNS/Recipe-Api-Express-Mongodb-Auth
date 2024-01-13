@@ -134,7 +134,7 @@ This API was created with ❤️ by [AIT M'BAREK YOUNESS](https://github.com/YNS
 
 - Node.js Documentation: [https://nodejs.org/docs/latest/api/](https://nodejs.org/docs/latest/api/)
 
-## Contribution
+## Contributing
 
 If you find issues or want to contribute, follow these steps:
 
