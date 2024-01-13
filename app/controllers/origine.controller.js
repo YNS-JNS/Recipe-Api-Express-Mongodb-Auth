@@ -50,6 +50,7 @@ exports.getAllOrigines = (req, res) => {
 
             res.status(200).json({
                 message: "successfully",
+                totalitems: origines.length,
                 data: origines
             })
         })

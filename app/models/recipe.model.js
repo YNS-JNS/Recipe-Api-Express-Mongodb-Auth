@@ -3,16 +3,19 @@ const mongoose = require("mongoose");
 
 // Creating recipeSchema
 const recipeSchema = mongoose.Schema({
-  name: { type: String, required: true},
+  name: { type: String, required: true },
   origine: { type: Number, ref: 'OrigineModel' }, // Reference the custom ID field
-  ingredients: { type: String, required: true},
-  description: { type: String, required: true},
+  // origine: { type: mongoose.Schema.Types.ObjectId, ref: 'OrigineModel' }, // Reference the custom ID field
+  ingredients: [
+    { type: String, required: true }
+  ],
+  description: { type: String, required: true },
   published: Boolean,
   // popularite: ,
   // image: ,
-}, 
-{ timestamps: true }
-)
+},
+  { timestamps: true }
+);
 
 /* 
   schema.method("toJSON", function() { ... }):
@@ -35,7 +38,7 @@ In summary, this custom toJSON method is overriding the default behavior of Mong
   This can be useful, especially when you want to format the JSON representation of your documents in a specific way, such as aligning with frontend expectations or excluding certain fields.
 */
 // Nb: If you use this app with a front-end that needs id field instead of _id, you have to override toJSON method that map default object to a custom object. So the Mongoose model could be modified as following code:
-recipeSchema.method("toJSON", function(){
+recipeSchema.method("toJSON", function () {
   // destructuring to create a new object named object that excludes the __v and _id fields. The __v field is a version key added by Mongoose, and _id is the default MongoDB unique identifier.
   const { __v, _id, ...object } = this.toObject();
   // adds a new property named id to the object and assigns the value of _id to it. This is done to rename the unique identifier from _id to id.
@@ -46,11 +49,8 @@ recipeSchema.method("toJSON", function(){
 
 // Exporting module
 module.exports = mongoose => {
-  
+
   // Création du Model pour les tutorials
   const RecipeModel = mongoose.model("recipe", recipeSchema);
   return RecipeModel;
 };
-
-// other method to export this module:
-// module.exports = mongoose.model("tutorial", tutoShema);

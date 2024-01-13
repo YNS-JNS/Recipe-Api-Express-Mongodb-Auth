@@ -23,7 +23,7 @@ module.exports = app => {
 
     // Find all recipes with published = true:
     router.get("/published", recipes.findAllPublished)
-   
+
     // Find a single Recipe with an id
     router.get("/:id", recipes.findOneRecipeById)
 
@@ -35,6 +35,13 @@ module.exports = app => {
 
     // Delete all recipes from the database: 
     router.delete("/", recipes.deleteAllRecipes)
+
+    // Get Recipes by custom id of Origines "origineId"
+    router.get("/origine/:idOrigine", recipes.getRecipesByOrigine)
+
+    // Get Recipes by country:
+    // http://localhost:8080/api/recipes?country=Morocco
+    // router.get("/", recipes.getRecipesByCountry)
 
     // ________________________________________________________________________________________________
     app.use('/api/recipes', router);

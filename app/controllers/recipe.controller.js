@@ -285,3 +285,77 @@ exports.findAllPublished = (req, res) => {
 };
 
 // ________________________________________________________________________________________________
+
+// Get Recipes by origine id:
+
+exports.getRecipesByOrigine = (req, res) => {
+
+    const { idOrigine } = req.params;
+
+    RecipeModel.find({ origine: idOrigine })
+        .then(recipes => {
+            if (!recipes) {
+                return res.status(404).json({ message: `there is no recipes with this id=${idOrigine}` })
+            }
+
+            res.status(200).json({
+                message: "List of Recipes by Origines country",
+                totalItems: recipes.length,
+                data: recipes
+            })
+        })
+        .catch(
+            err => res.status(500).json({
+                message: "Some error occurred while retrieving recipes by origines custom id!",
+                error: err.message
+            })
+        );
+};
+
+// ________________________________________________________________________________________________
+
+// Get Recipes by country:
+// exports.getRecipesByCountry = (req, res) => {
+
+//     const { country } = req.query;
+
+//     if (!country) {
+//         return res.status(400).json({ message: "The 'country' parameter is required in the query." });
+//     }
+
+//     OrigineModel.findOne({ country })
+//         .then(
+//             (origine) => {
+
+//                 if (!origine) {
+//                     return res.status(404).json({ message: `No countries found with the name: ${country}` })
+//                 }
+
+//                 RecipeModel.find({ origine: origine.origineId })
+//                     .then( recipes => {
+//                             if (!recipes) {
+//                                 return res.status(404).json({ message: `there is no recipes with this country=${country}` })
+//                             }
+
+//                             res.status(200).json({
+//                                 message: `List of recipes for country: ${country}`,
+//                                 totalItems: recipes.length,
+//                                 data: recipes
+//                             })
+//                         }
+//                     )
+//                     .catch(
+//                         err => res.status(500).json({
+//                             message: "An error has occurred while retrieving recipes by country!",
+//                             error: err.message
+//                         })
+//                     );
+//             }
+//         )
+//         .catch(
+//             err => res.status(500).json({
+//                 message: `An error occurred while searching for the country with the name ${country}!`,
+//                 error: err.message
+//             })
+//         );
+// };
