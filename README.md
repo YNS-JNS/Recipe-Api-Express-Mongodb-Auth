@@ -10,7 +10,6 @@ Recipe API is a RESTful CRUD API built with Node.js, Express, and MongoDB for ma
 - [Usage](#usage)
 - [Endpoints](#endpoints)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -30,28 +29,26 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installation
 
-1. **Clone the repository:**
+**Clone the repository:**
 
    ```bash
    git clone https://github.com/YNS-JNS/Recipe-Api-Express-Mongodb.git
    ```
 
-
-2. **Setting up the Backend:**
-
-    - ***Navigate to the project directory:***
+ **Navigate to the project directory:**
 
     ```bash
     cd Recipe-Api-Express-Mongodb
     ```
 
-3. **Install the necessary packages:**
+**Install the necessary packages:**
 
     ```bash
     npm install
     ```
+## Usage
 
-4. **MongoDB Setup:**
+ **MongoDB Setup:**
 
     - Create a new database on MongoDB.
     - Copy the connection string provided by MongoDB.
@@ -63,20 +60,20 @@ Before you begin, ensure you have met the following requirements:
     npm start
     ```
     
-5. **Open the App:**
+**Open the App:**
 
     The API will be available at http://localhost:8080. Use a tool like Postman to interact with the API.
 
     Server is running on port: [http://localhost:8080](http://localhost:8080).
    
-7. **Endpoints**
+## Endpoints
 
 - /api/recipes: GET, POST, DELETE
 - /api/recipes/:id: GET, PUT, DELETE
 - /api/recipes/published: GET
 - /api/origines/: POST
 
-8. **Example API request:**
+**Example API request:**
 
 ***GET /recipes***
 Example API response:
