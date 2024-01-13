@@ -4,7 +4,7 @@ module.exports = app => {
     const router = require("express").Router();
 
 
-    router.post("/origine", recipes.createOrigine);
+    router.post("/", recipes.createOrigine);
 
     app.use('/api/origines', router);
 
