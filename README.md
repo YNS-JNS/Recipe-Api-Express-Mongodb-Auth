@@ -50,9 +50,9 @@ Before you begin, ensure you have met the following requirements:
 
  **MongoDB Setup:**
 
-    - Create a new database on MongoDB.
-    - Copy the connection string provided by MongoDB.
-    - Replace the `uri` in the `app/config/db.config.js` file with your MongoDB connection string.
+   - Create a new database on MongoDB.
+   - Copy the connection string provided by MongoDB.
+   - Replace the `uri` in the `app/config/db.config.js` file with your MongoDB connection string.
 
 **Start the backend server:**
 
@@ -62,9 +62,9 @@ Before you begin, ensure you have met the following requirements:
     
 **Open the App:**
 
-    The API will be available at http://localhost:8080. Use a tool like Postman to interact with the API.
+   The API will be available at http://localhost:8080. Use a tool like Postman to interact with the API.
 
-    Server is running on port: [http://localhost:8080](http://localhost:8080).
+   Server is running on port: [http://localhost:8080](http://localhost:8080).
    
 ## Endpoints
 
