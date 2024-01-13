@@ -37,15 +37,15 @@ Before you begin, ensure you have met the following requirements:
 
  **Navigate to the project directory:**
 
-    ```bash
+   ```bash
     cd Recipe-Api-Express-Mongodb
-    ```
+   ```
 
 **Install the necessary packages:**
 
-    ```bash
+   ```bash
     npm install
-    ```
+   ```
 ## Usage
 
  **MongoDB Setup:**
@@ -54,11 +54,11 @@ Before you begin, ensure you have met the following requirements:
     - Copy the connection string provided by MongoDB.
     - Replace the `uri` in the `app/config/db.config.js` file with your MongoDB connection string.
 
-    - **Start the backend server:**
+**Start the backend server:**
 
-    ```bash
+  ```bash
     npm start
-    ```
+  ```
     
 **Open the App:**
 
