@@ -9,6 +9,8 @@ Recipe API is a RESTful CRUD API built with Node.js, Express, and MongoDB for ma
 - [Installation](#installation)
 - [Usage](#usage)
 - [Endpoints](#endpoints)
+- [Dependencies](#Dependencies)
+- [Author](#Author)
 - [Contributing](#contributing)
 
 ## Features
@@ -129,7 +131,7 @@ Example API response:
 **List of project dependencies:**
 
 - cors : Cross-origin resource sharing, (CORS) is a mechanism that allows restricted resources on a web page to be accessed from another domain outside the domain from which the first resource was served.
-- express
+- express : web framework for Node.js.
 - joi : The most powerful schema description language
 and data validator for JavaScript
 - mongoose : Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports Node.js and Deno (alpha).
