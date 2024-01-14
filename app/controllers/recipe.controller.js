@@ -26,16 +26,28 @@ const RecipeModel = db.recipe;
 const OrigineModel = db.origine;
 // const OrigineModel = require("../models/origine.model")(db.mongoose);
 
+// Validation func:
+const { recipeIdSchema, createRecipeSchema, updateRecipeSchema } = require("../validators/recipeValidator")
 
 // ________________________________________________________________________________________________
 
 // Create and Save a new recipe:
 exports.createRecipe = (req, res) => {
 
-    // Validate request
+    // Validation
+    /*
     if (!req.body.name || !req.body.origine) {
         res.status(400).json({ message: "Content can not be empty, name and origine are required fields!" })
         return;
+    }
+    */
+
+    const { error } = createRecipeSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).json({
+            message: error.details[0].message
+        });
     }
 
     // Check if the origine exist or not
@@ -151,6 +163,14 @@ exports.findAllRecipes = (req, res) => {
 // Find a single recipe with an id
 exports.findOneRecipeById = (req, res) => {
 
+    const { error: idError } = recipeIdSchema.validate(req.params.id)
+
+    if (idError) {
+        return res.status(400).json({
+            message: "Recipe ID is invalid."
+        })
+    }
+
     const { id } = req.params; // Extract the id from the request
 
     RecipeModel.findById(id)
@@ -177,16 +197,38 @@ exports.findOneRecipeById = (req, res) => {
 // Update a recipe identified by the id in the request:
 exports.updateRecipeById = (req, res) => {
 
-    // Validation
+    // Validation ID
+    const { error: idError } = recipeIdSchema.validate(req.params.id);
+
+    if (idError) {
+        return res.status(400).json({ message: "Recipe ID is invalid." })
+    }
+
+    const { error: dataError, value } = updateRecipeSchema.validate(req.body, { abortEarly: false });
+
+    /*
+        En utilisant { abortEarly: false } avec validate, vous obtiendrez toutes les erreurs de validation à la fois, plutôt que d'arrêter à la première erreur. 
+        Ensuite, vous pouvez mapper ces erreurs pour informer l'utilisateur de chaque champ invalide.
+        Cette approche donne plus de flexibilité pour gérer des messages d'erreur plus détaillés pour chaque champ. 
+        Vous pouvez personnaliser le message d'erreur pour chaque champ dans votre réponse JSON.
+    */
+
+    if (dataError) {
+        const errorMessage = dataError.details.map(detail => detail.message)
+        return res.status(400).json({ message: errorMessage });
+    }
+
+    /*
     if (!req.body) {
         return res.status(400).json({ message: "Data to update can not be empty!" });
     }
+    */
 
     const { id } = req.params;
 
     // Nb: The {new: true} option in the findByIdAndUpdate() a method is used to return the modified document to the then() function instead of the original.
 
-    RecipeModel.findByIdAndUpdate(id, req.body, { new: true, useFindAndModify: false })
+    RecipeModel.findByIdAndUpdate(id, value, { new: true, useFindAndModify: false })
         .then(recipe => {
             // If recipe is not exist
             if (!recipe) {
@@ -213,7 +255,15 @@ exports.updateRecipeById = (req, res) => {
 // ________________________________________________________________________________________________
 
 // Delete a recipe with the specified id:
-exports.deleteNameById = (req, res) => {
+exports.deleteRecipeById = (req, res) => {
+
+    const { error: idError } = recipeIdSchema.validate(req.params.id)
+
+    if (idError) {
+        return res.status(400).json({
+            message: "Recipe ID is invalid."
+        })
+    }
 
     const { id } = req.params;
 

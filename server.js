@@ -3,7 +3,7 @@
 // Importing packages : __________________________________________________________________________
 const express = require("express");
 const db = require("./app/models"); // Importing db object
-
+const logger = require("morgan")
 
 // -----------------------------------------------------------------------------------------------
 // cors: A middleware to manage resource sharing problems between different domains.             |
@@ -56,6 +56,9 @@ app.use(express.json())
 // parse requests of content-type - application/x-www-form-urlencoded
 // This middleware parses incoming requests with URL-encoded payloads (form submit HTML)
 app.use(express.urlencoded({ extended: true }));
+
+// Middleware morgan
+app.use(logger('dev'));
 
 // ________________________________________________________________________________________________
 // Connecting to MongoDb Atlas:

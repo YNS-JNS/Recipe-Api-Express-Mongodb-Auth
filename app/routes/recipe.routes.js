@@ -31,7 +31,7 @@ module.exports = app => {
     router.put("/:id", recipes.updateRecipeById)
 
     // Delete a Recipe with the specified id:
-    router.delete("/:id", recipes.deleteNameById)
+    router.delete("/:id", recipes.deleteRecipeById)
 
     // Delete all recipes from the database: 
     router.delete("/", recipes.deleteAllRecipes)
