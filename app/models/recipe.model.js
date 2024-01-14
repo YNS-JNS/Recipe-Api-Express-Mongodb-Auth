@@ -2,18 +2,38 @@
 const mongoose = require("mongoose");
 
 // Creating recipeSchema
-const recipeSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  origine: { type: Number, ref: 'OrigineModel' }, // Reference the custom ID field
-  // origine: { type: mongoose.Schema.Types.ObjectId, ref: 'OrigineModel' }, // Reference the custom ID field
-  ingredients: [
-    { type: String, required: true }
-  ],
-  description: { type: String, required: true },
-  published: Boolean,
-  // popularite: ,
-  // image: ,
-},
+const recipeSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Recipe name is required!'],
+      trim: true,
+      minlength: [3, 'Too short recipe name!'],
+      maxlength: [100, 'Too long recipe name!'],
+    },
+    origine: {
+      type: Number,
+      required: [true, 'Origine country is required!'],
+      trim: true,
+      ref: 'OrigineModel' // Reference the custom ID field
+    },
+    // origine: { type: mongoose.Schema.Types.ObjectId, ref: 'OrigineModel' }, // Reference the custom ID field
+    ingredients: [
+      {
+        type: String,
+        required: [true, 'ingredients is required!'],
+        trim: true,
+      }
+    ],
+    description: {
+      type: String,
+      required: [true, 'description is required!'],
+      trim: true,
+    },
+    published: Boolean,
+    // popularite: ,
+    // image: ,
+  },
   { timestamps: true }
 );
 
