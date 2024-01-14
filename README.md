@@ -125,10 +125,19 @@ Example API response:
   // More recipes...
 ]
 ```
+## Dependencies
+**List of project dependencies:**
+
+- cors : Cross-origin resource sharing, (CORS) is a mechanism that allows restricted resources on a web page to be accessed from another domain outside the domain from which the first resource was served.
+- express
+- joi : The most powerful schema description language
+and data validator for JavaScript
+- mongoose : Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports Node.js and Deno (alpha).
+- morgan : HTTP request logger middleware for node.js
 
 ## Author
 
-This API was created with ❤️ by [AIT M'BAREK YOUNESS](https://github.com/YNS-JNS).
+This API was created with ❤️ by ***[AIT M'BAREK YOUNESS](https://github.com/YNS-JNS).***
 
 ## Learn More
 
