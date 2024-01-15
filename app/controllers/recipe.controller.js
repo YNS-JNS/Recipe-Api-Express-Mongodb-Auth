@@ -27,7 +27,7 @@ const OrigineModel = db.origine;
 // const OrigineModel = require("../models/origine.model")(db.mongoose);
 
 // Validation func:
-const { recipeIdSchema, createRecipeSchema, updateRecipeSchema } = require("../validators/recipeValidator")
+const { recipeIdSchema, createRecipeSchema, updateRecipeSchema } = require("../middlewares/validators/recipeValidator")
 
 // ________________________________________________________________________________________________
 
