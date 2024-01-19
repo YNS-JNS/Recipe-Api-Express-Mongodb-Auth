@@ -32,8 +32,10 @@ exports.auth = {
             });
         }
 
+        const { email } = req.body
+
         // Check if the user already exists
-        UserModel.findOne(req.body.email)
+        UserModel.findOne({email})
             .then(user => {
 
                 if (user) {

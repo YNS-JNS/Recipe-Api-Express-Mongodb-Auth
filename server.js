@@ -90,6 +90,29 @@ require("./app/routes/origine.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // ________________________________________________________________________________________________
+
+const swaggerJSDoc = require('swagger-jsdoc');
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Authentication API',
+      version: '1.0.0',
+      description: 'API documentation with Swagger',
+    },
+  },
+  apis: ['./routes/*.js'], // Path to the API routes with Swagger comments
+};
+
+const swaggerSpec = swaggerJSDoc(options);
+
+const swaggerUi = require('swagger-ui-express');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+// ________________________________________________________________________________________________
 // Configuration du port et démarrage du serveur :
 // Set port, listen for requests:
 const PORT = process.env.PORT || 8080;
