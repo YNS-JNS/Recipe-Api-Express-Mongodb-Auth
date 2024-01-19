@@ -9,8 +9,9 @@ Recipe API is a RESTful CRUD API built with Node.js, Express, and MongoDB for ma
 - [Installation](#installation)
 - [Usage](#usage)
 - [Endpoints](#endpoints)
+- [Dependencies](#Dependencies)
+- [Author](#Author)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -30,53 +31,51 @@ Before you begin, ensure you have met the following requirements:
 
 ## Installation
 
-1. **Clone the repository:**
+**Clone the repository:**
 
    ```bash
    git clone https://github.com/YNS-JNS/Recipe-Api-Express-Mongodb.git
    ```
 
+ **Navigate to the project directory:**
 
-2. **Setting up the Backend:**
-
-    - ***Navigate to the project directory:***
-
-    ```bash
+   ```bash
     cd Recipe-Api-Express-Mongodb
-    ```
+   ```
 
-3. **Install the necessary packages:**
+**Install the necessary packages:**
 
-    ```bash
+   ```bash
     npm install
-    ```
+   ```
+## Usage
 
-4. **MongoDB Setup:**
+ **MongoDB Setup:**
 
-    - Create a new database on MongoDB.
-    - Copy the connection string provided by MongoDB.
-    - Replace the `uri` in the `app/config/db.config.js` file with your MongoDB connection string.
+   - Create a new database on MongoDB.
+   - Copy the connection string provided by MongoDB.
+   - Replace the `uri` in the `app/config/db.config.js` file with your MongoDB connection string.
 
-    - **Start the backend server:**
+**Start the backend server:**
 
-    ```bash
+  ```bash
     npm start
-    ```
+  ```
     
-5. **Open the App:**
+**Open the App:**
 
-    The API will be available at http://localhost:8080. Use a tool like Postman to interact with the API.
+   The API will be available at http://localhost:8080. Use a tool like Postman to interact with the API.
 
-    Server is running on port: [http://localhost:8080](http://localhost:8080).
+   Server is running on port: [http://localhost:8080](http://localhost:8080).
    
-7. **Endpoints**
+## Endpoints
 
 - /api/recipes: GET, POST, DELETE
 - /api/recipes/:id: GET, PUT, DELETE
 - /api/recipes/published: GET
 - /api/origines/: POST
 
-8. **Example API request:**
+**Example API request:**
 
 ***GET /recipes***
 Example API response:
@@ -84,24 +83,69 @@ Example API response:
 
 [
   {
-    "id": "1",
-    "name": "Spaghetti Bolognese",
-    "ingredients": ["ground beef", "tomatoes", "spaghetti"],
-    "instructions": "Cook ground beef, add tomatoes, serve over cooked spaghetti."
-  },
+            "name": "Moroccan Couscous",
+            "origine": 1,
+            "ingredients": [
+                "couscous",
+                "chickpeas",
+                "lamb",
+                "carrots",
+                "zucchini",
+                "onions",
+                "tomatoes",
+                "garlic",
+                "olive oil",
+                "coriander",
+                "cumin",
+                "turmeric",
+                "cinnamon",
+                "salt",
+                "pepper"
+            ],
+            "description": "A flavorful and aromatic Moroccan couscous dish with a mix of vegetables and tender lamb.",
+            "published": true,
+            "createdAt": "2024-01-13T18:40:53.781Z",
+            "updatedAt": "2024-01-13T18:40:53.781Z",
+            "id": "65a2d9354453af1d7ee3638b"
+        },
+        {
+            "name": "Sushi Rolls",
+            "origine": 5,
+            "ingredients": [
+                "rice",
+                "fish",
+                "seaweed",
+                "avocado",
+                "soy sauce"
+            ],
+            "description": "Japanese sushi rolls with fresh ingredients",
+            "published": true,
+            "createdAt": "2024-01-13T18:41:50.033Z",
+            "updatedAt": "2024-01-13T18:41:50.033Z",
+            "id": "65a2d96e4453af1d7ee36397"
+        },
   // More recipes...
 ]
 ```
+## Dependencies
+**List of project dependencies:**
+
+- cors : Cross-origin resource sharing, (CORS) is a mechanism that allows restricted resources on a web page to be accessed from another domain outside the domain from which the first resource was served.
+- express : web framework for Node.js.
+- joi : The most powerful schema description language
+and data validator for JavaScript
+- mongoose : Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose supports Node.js and Deno (alpha).
+- morgan : HTTP request logger middleware for node.js
 
 ## Author
 
-This API was created with ❤️ by [AIT M'BAREK YOUNESS](https://github.com/YNS-JNS).
+This API was created with ❤️ by ***[AIT M'BAREK YOUNESS](https://github.com/YNS-JNS).***
 
 ## Learn More
 
 - Node.js Documentation: [https://nodejs.org/docs/latest/api/](https://nodejs.org/docs/latest/api/)
 
-## Contribution
+## Contributing
 
 If you find issues or want to contribute, follow these steps:
 
