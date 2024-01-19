@@ -20,3 +20,22 @@ exports.singUpValidator = (dataUser) => {
 
     return createUserSchema.validate(dataUser);
 };
+
+/**
+ * Validate user login credentials.
+ * @function
+ * @param {Object} dataUser - The user login credentials to validate.
+ * @returns {Object} - Validation result containing error details.
+ */
+
+exports.singInValidator = (dataUser) => {
+
+    const createUserSchema = Joi.object(
+        {
+            email: Joi.string().email().required(),
+            password: Joi.string().required().min(8).max(50),
+        }
+    );
+
+    return createUserSchema.validate(dataUser);
+};

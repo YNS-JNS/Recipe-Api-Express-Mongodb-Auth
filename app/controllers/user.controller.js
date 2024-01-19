@@ -48,12 +48,19 @@ export const auth = {
                             newUser.save()
                                 .then(
                                     user => {
+                                        // Generate a token for the newly created user
+                                        const newToken = generateToken({
+                                            sub: user.id,
+                                            firstName: user.firstName,
+                                            lastName: user.lastName
+                                        });
+
                                         res.status(201).json({
                                             message: "user created successfully.",
-                                            data: user
+                                            data: user,
+                                            token: newToken
                                         })
                                     }
-
                                 )
                                 .catch(
                                     err => {
@@ -91,6 +98,13 @@ export const auth = {
 
     },
     singIn: null,
-    generateToken: null,
     logOut: null,
+};
+
+const generateToken = (payload) => {
+    const token = jwt.sign(payload, 'SECRET_KEY_TOKEN', {
+        expiresIn: '1d',
+    })
+
+    return token;
 }
