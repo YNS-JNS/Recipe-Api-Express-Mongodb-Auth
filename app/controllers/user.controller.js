@@ -3,14 +3,14 @@ const UserModel = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { signUpValidator, signInValidator } = require("../validators/userValidators");
+const { signUpValidator, signInValidator } = require("../middlewares/validators/userValidators");
 
 /**
  * Controller methods for user authentication.
  * @namespace auth
  */
 
-export const auth = {
+exports.auth = {
 
     /**
    * Register a new user.
@@ -32,8 +32,10 @@ export const auth = {
             });
         }
 
+        const { email } = req.body
+
         // Check if the user already exists
-        UserModel.findOne(req.body.email)
+        UserModel.findOne({email})
             .then(user => {
 
                 if (user) {
