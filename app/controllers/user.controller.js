@@ -37,7 +37,7 @@ export const auth = {
             .then(user => {
 
                 if (user) {
-                    return res.status().json({
+                    return res.status(409).json({
                         message: "This user already exists! Please create a new one with another email"
                     })
                 }
