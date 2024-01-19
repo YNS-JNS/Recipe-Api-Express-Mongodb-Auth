@@ -87,6 +87,7 @@ db.mongoose
 // Routes definition :
 require("./app/routes/recipe.routes")(app);
 require("./app/routes/origine.routes")(app);
+require("./app/routes/user.routes")(app);
 
 // ________________________________________________________________________________________________
 // Configuration du port et démarrage du serveur :
