@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
  * @returns {Promise<void>} - A Promise that resolves after processing.
  */
 
-export const authMiddleware = (req, res, next) => {
+exports.authMiddleware = (req, res, next) => {
 
     try {
 
