@@ -3,7 +3,7 @@ const UserModel = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { singUpValidator, singInValidator } = require("../validators/userValidators");
+const { signUpValidator, signInValidator } = require("../validators/userValidators");
 
 /**
  * Controller methods for user authentication.
@@ -21,10 +21,10 @@ export const auth = {
    * @param {Object} res - Express response object.
    * @returns {Promise<void>} - A Promise that resolves after processing.
    */
-    singUp: (req, res) => {
+    signUp: (req, res) => {
 
-        // Checking if there an error
-        const { error } = singUpValidator(req.body);
+        // Validate input using Joi schema
+        const { error } = signUpValidator(req.body);
 
         if (error) {
             return res.status(400).json({
@@ -111,7 +111,7 @@ export const auth = {
 
 
     },
-    
+
     /**
   * Sign in an existing user.
   * @function
@@ -121,12 +121,12 @@ export const auth = {
   * @param {Object} res - Express response object.
   * @returns {Promise<void>} - A Promise that resolves after processing.
   */
-    singIn: (req, res) => {
+    signIn: (req, res) => {
 
         const { email, password } = req.body;
 
         // Validate input using Joi schema
-        const { error } = singInValidator(req.body);
+        const { error } = signInValidator(req.body);
 
         if (error) {
             return res.status(400).json({
@@ -142,6 +142,7 @@ export const auth = {
                         return res.status(401).json({ message: 'Email or password is incorrect' });
                     }
 
+                    // Compare the provided password with the stored hashed password
                     bcrypt.compare(password, user.password)
                         .then(
                             validUser => {
@@ -150,6 +151,7 @@ export const auth = {
                                     return res.status(401).json({ message: 'Incorrect login or password !' });
                                 } else {
 
+                                    // Generate a token for the authenticated user
                                     const token = generateToken({
                                         sub: user.id,
                                         firstName: user.firstName,

@@ -7,7 +7,7 @@ const Joi = require("joi");
  * @returns {Object} - Validation result containing error details.
  */
 
-exports.singUpValidator = (dataUser) => {
+exports.signUpValidator = (dataUser) => {
 
     const createUserSchema = Joi.object(
         {
@@ -28,7 +28,7 @@ exports.singUpValidator = (dataUser) => {
  * @returns {Object} - Validation result containing error details.
  */
 
-exports.singInValidator = (dataUser) => {
+exports.signInValidator = (dataUser) => {
 
     const createUserSchema = Joi.object(
         {

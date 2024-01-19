@@ -3,8 +3,8 @@ module.exports = app => {
     const router = require("express").Router();
 
     // Create a new User
-    router.post("/", auth.singUp);
-    router.post("/", auth.singIn);
+    router.post("/", auth.signUp);
+    router.post("/", auth.signIn);
 
     // ________________________________________________________________________________________________
     app.use('/api/user', router);
