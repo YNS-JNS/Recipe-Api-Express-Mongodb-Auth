@@ -3,10 +3,24 @@ const UserModel = db.user;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { singUpValidator } = require("../validators/userValidators");
+const { singUpValidator, singInValidator } = require("../validators/userValidators");
+
+/**
+ * Controller methods for user authentication.
+ * @namespace auth
+ */
 
 export const auth = {
 
+    /**
+   * Register a new user.
+   * @function
+   * @async
+   * @memberof auth
+   * @param {Object} req - Express request object.
+   * @param {Object} res - Express response object.
+   * @returns {Promise<void>} - A Promise that resolves after processing.
+   */
     singUp: (req, res) => {
 
         // Checking if there an error
@@ -97,9 +111,90 @@ export const auth = {
 
 
     },
-    singIn: null,
+    
+    /**
+  * Sign in an existing user.
+  * @function
+  * @async
+  * @memberof auth
+  * @param {Object} req - Express request object.
+  * @param {Object} res - Express response object.
+  * @returns {Promise<void>} - A Promise that resolves after processing.
+  */
+    singIn: (req, res) => {
+
+        const { email, password } = req.body;
+
+        // Validate input using Joi schema
+        const { error } = singInValidator(req.body);
+
+        if (error) {
+            return res.status(400).json({
+                message: error.details[0].message
+            });
+        }
+
+        // Check if the user with the provided email exists
+        UserModel.findOne({ email })
+            .then(
+                user => {
+                    if (!user) {
+                        return res.status(401).json({ message: 'Email or password is incorrect' });
+                    }
+
+                    bcrypt.compare(password, user.password)
+                        .then(
+                            validUser => {
+
+                                if (!validUser) {
+                                    return res.status(401).json({ message: 'Incorrect login or password !' });
+                                } else {
+
+                                    const token = generateToken({
+                                        sub: user.id,
+                                        firstName: user.firstName,
+                                        lastName: user.lastName
+                                    })
+
+                                    res.status(200).json({
+                                        token
+                                    })
+                                }
+
+                            }
+                        )
+                        .catch(err => {
+                            res.status(500).json(
+                                {
+                                    message: "Error checking password.",
+                                    error: err.message
+                                }
+                            )
+                        });
+                }
+            )
+            .catch(
+                err => {
+                    res.status(500).json(
+                        {
+                            message: "Error checking user existence.",
+                            error: err.message
+                        }
+                    )
+                }
+            );
+
+    },
+    // Log out function
     logOut: null,
 };
+
+/**
+ * Generate a JSON Web Token (JWT) for authentication.
+ * @function
+ * @param {Object} payload - Payload to be included in the token.
+ * @returns {string} - The generated JWT.
+ */
 
 const generateToken = (payload) => {
     const token = jwt.sign(payload, 'SECRET_KEY_TOKEN', {
