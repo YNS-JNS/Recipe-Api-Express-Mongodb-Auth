@@ -12,6 +12,8 @@ const { signUpValidator, signInValidator } = require("../middlewares/validators/
 
 exports.auth = {
 
+    // SignUp : --------------------------------------------------------------------------
+
     /**
     * TODO: Register a new user.
     * @function
@@ -20,6 +22,35 @@ exports.auth = {
     * @param {Object} req - Express request object.
     * @param {Object} res - Express response object.
     * @returns {Promise<void>} - A Promise that resolves after processing.
+    * @swagger
+     * /signup:
+     *   post:
+     *     summary: Register a new user
+     *     tags:
+     *       - auth
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             $ref: '#/components/schemas/UserSignup'
+     *     responses:
+     *       '201':
+     *         description: User created successfully
+     *         content:
+     *           application/json:
+     *             example:
+     *               message: user created successfully.
+     *               data:
+     *                 _id: '...'
+     *                 email: 'user@example.com'
+     *               token: '...'
+     *       '400':
+     *         description: Bad request
+     *         content:
+     *           application/json:
+     *             example:
+     *               message: 'Validation error: Name is required.'
     */
 
     signUp: (req, res) => {
@@ -113,6 +144,8 @@ exports.auth = {
             );
     },
 
+    // SignIn : --------------------------------------------------------------------------
+
     /**
      * Sign in an existing user.
      * @function
@@ -121,7 +154,45 @@ exports.auth = {
      * @param {Object} req - Express request object.
      * @param {Object} res - Express response object.
      * @returns {Promise<void>} - A Promise that resolves after processing.
-     */
+     * @swagger
+        * /signin:
+        *   post:
+        *     summary: Sign in an existing user
+        *     tags:
+        *       - auth
+        *     requestBody:
+        *       required: true
+        *       content:
+        *         application/json:
+        *           schema:
+        *             $ref: '#/components/schemas/UserSignIn'
+        *     responses:
+        *       '200':
+        *         description: Successfully signed in
+        *         content:
+        *           application/json:
+        *             example:
+        *               token: '...'
+        *       '400':
+        *         description: Bad request
+        *         content:
+        *           application/json:
+        *             example:
+        *               message: 'Validation error: Email is required.'
+        *       '401':
+        *         description: Unauthorized
+        *         content:
+        *           application/json:
+        *             example:
+        *               message: 'Email or password is incorrect'
+        *       '500':
+        *         description: Internal Server Error
+        *         content:
+        *           application/json:
+        *             example:
+        *               message: 'Error checking user existence.'
+        *               error: '...'
+    */
 
     signIn: (req, res) => {
 
@@ -189,12 +260,15 @@ exports.auth = {
             );
     },
 
+    // LogOut : --------------------------------------------------------------------------
+
     // TODO: Log out function
     logOut: null,
 
 };
 
 // ________________________________________________________________________________________
+
 /**
  * TODO: Generate a JSON Web Token (JWT) for authentication.
  * @function
@@ -209,4 +283,5 @@ const generateToken = (payload) => {
 
     return token;
 }
+
 // ________________________________________________________________________________________
