@@ -1,56 +1,26 @@
-const db = require("../models");
+const db = require("../models"); // * Importing db object that has models
 const UserModel = db.user;
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt"); // * for hashing password
+const jwt = require("jsonwebtoken"); // * for token generating
 
+// * Importing middlewares for validations using Joi library:
 const { signUpValidator, signInValidator } = require("../middlewares/validators/userValidators");
 
 /**
  * TODO: Controller methods for user authentication.
  * @namespace auth
- */
+*/
 
 exports.auth = {
 
-    // SignUp : --------------------------------------------------------------------------
-
     /**
-    * TODO: Register a new user.
-    * @function
-    * @async
-    * @memberof auth
-    * @param {Object} req - Express request object.
-    * @param {Object} res - Express response object.
-    * @returns {Promise<void>} - A Promise that resolves after processing.
-    * @swagger
-     * /signup:
-     *   post:
-     *     summary: Register a new user
-     *     tags:
-     *       - auth
-     *     requestBody:
-     *       required: true
-     *       content:
-     *         application/json:
-     *           schema:
-     *             $ref: '#/components/schemas/UserSignup'
-     *     responses:
-     *       '201':
-     *         description: User created successfully
-     *         content:
-     *           application/json:
-     *             example:
-     *               message: user created successfully.
-     *               data:
-     *                 _id: '...'
-     *                 email: 'user@example.com'
-     *               token: '...'
-     *       '400':
-     *         description: Bad request
-     *         content:
-     *           application/json:
-     *             example:
-     *               message: 'Validation error: Name is required.'
+        * TODO: SignUp => Register a new user.
+        * @function
+        * @async
+        * @memberof auth
+        * @param {Object} req - Express request object.
+        * @param {Object} res - Express response object.
+        * @returns {Promise<void>} - A Promise that resolves after processing.
     */
 
     signUp: (req, res) => {
@@ -73,13 +43,13 @@ exports.auth = {
 
                 if (user) {
                     return res.status(409).json({
-                        message: "This user already exists! Please create a new one with another email"
+                        message: "This user already exists! Please create a new one with another email."
                     })
                 }
-
+                // if user not exists
                 // TODO: Hash the password before storing it in the database
                 const saltRounds = 10; // * Nombre de "rounds" utilisés pour le hachage du mot de passe
-
+                // ----------------------------------------------------------------------------
                 bcrypt.hash(req.body.password, saltRounds)
                     .then(
                         // * Si le hachage est réussi
@@ -92,6 +62,7 @@ exports.auth = {
                                 }
                             );
 
+                            // --------------------------------------
                             // TODO: Save the new user
                             newUser.save()
                                 .then(
@@ -121,6 +92,7 @@ exports.auth = {
                                         )
                                     }
                                 );
+                            // --------------------------------------
                         }
                     )
                     .catch(err => {
@@ -131,6 +103,7 @@ exports.auth = {
                             }
                         )
                     });
+                // ----------------------------------------------------------------------------
             })
             .catch(
                 err => {
@@ -144,54 +117,14 @@ exports.auth = {
             );
     },
 
-    // SignIn : --------------------------------------------------------------------------
-
     /**
-     * Sign in an existing user.
-     * @function
-     * @async
-     * @memberof auth
-     * @param {Object} req - Express request object.
-     * @param {Object} res - Express response object.
-     * @returns {Promise<void>} - A Promise that resolves after processing.
-     * @swagger
-        * /signin:
-        *   post:
-        *     summary: Sign in an existing user
-        *     tags:
-        *       - auth
-        *     requestBody:
-        *       required: true
-        *       content:
-        *         application/json:
-        *           schema:
-        *             $ref: '#/components/schemas/UserSignIn'
-        *     responses:
-        *       '200':
-        *         description: Successfully signed in
-        *         content:
-        *           application/json:
-        *             example:
-        *               token: '...'
-        *       '400':
-        *         description: Bad request
-        *         content:
-        *           application/json:
-        *             example:
-        *               message: 'Validation error: Email is required.'
-        *       '401':
-        *         description: Unauthorized
-        *         content:
-        *           application/json:
-        *             example:
-        *               message: 'Email or password is incorrect'
-        *       '500':
-        *         description: Internal Server Error
-        *         content:
-        *           application/json:
-        *             example:
-        *               message: 'Error checking user existence.'
-        *               error: '...'
+        * TODO: Sign In an existing user.
+        * @function
+        * @async
+        * @memberof auth
+        * @param {Object} req - Express request object.
+        * @param {Object} res - Express response object.
+        * @returns {Promise<void>} - A Promise that resolves after processing.
     */
 
     signIn: (req, res) => {
@@ -207,6 +140,7 @@ exports.auth = {
             });
         }
 
+        // ----------------------------------------------------------------------------
         // TODO: Check if the user with the provided email exists
         UserModel.findOne({ email })
             .then(
@@ -215,6 +149,7 @@ exports.auth = {
                         return res.status(401).json({ message: 'Email or password is incorrect' });
                     }
 
+                    // --------------------------------------
                     // TODO: Compare the provided password with the stored hashed password
                     bcrypt.compare(password, user.password)
                         .then(
@@ -246,6 +181,7 @@ exports.auth = {
                                 }
                             )
                         });
+                    // --------------------------------------
                 }
             )
             .catch(
@@ -258,11 +194,20 @@ exports.auth = {
                     )
                 }
             );
+        // ----------------------------------------------------------------------------
+
     },
 
-    // LogOut : --------------------------------------------------------------------------
+    /**
+        * TODO: LogOut: function
+        * @function
+        * @async
+        * @memberof auth
+        * @param {Object} req - Express request object.
+        * @param {Object} res - Express response object.
+        * @returns {Promise<void>} - A Promise that resolves after processing.
+    */
 
-    // TODO: Log out function
     logOut: null,
 
 };
@@ -274,7 +219,7 @@ exports.auth = {
  * @function
  * @param {Object} payload - Payload to be included in the token.
  * @returns {string} - The generated JWT.
- */
+*/
 
 const generateToken = (payload) => {
     const token = jwt.sign(payload, 'SECRET_KEY_TOKEN', {
