@@ -4,7 +4,7 @@ const OrigineModel = db.origine;
 
 // ________________________________________________________________________________________________
 
-// Create and Save a new origine:
+// TODO: Create and Save a new origine:
 exports.createOrigine = (req, res) => {
 
     // Validate request
@@ -36,7 +36,8 @@ exports.createOrigine = (req, res) => {
 }
 
 // ________________________________________________________________________________________________
-// Get all Origine Category
+
+// TODO: Get all Origine Category
 exports.getAllOrigines = (req, res) => {
 
     OrigineModel.find()

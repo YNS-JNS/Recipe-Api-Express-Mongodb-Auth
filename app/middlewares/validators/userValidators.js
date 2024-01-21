@@ -1,11 +1,11 @@
 const Joi = require("joi");
 
 /**
- * Validate user registration data.
+ * TODO: Validate user registration data.
  * @function
  * @param {Object} dataUser - The user registration data to validate.
  * @returns {Object} - Validation result containing error details.
- */
+*/
 
 exports.signUpValidator = (dataUser) => {
 
@@ -22,11 +22,11 @@ exports.signUpValidator = (dataUser) => {
 };
 
 /**
- * Validate user login credentials.
+ * TODO: Validate user login credentials.
  * @function
  * @param {Object} dataUser - The user login credentials to validate.
  * @returns {Object} - Validation result containing error details.
- */
+*/
 
 exports.signInValidator = (dataUser) => {
 

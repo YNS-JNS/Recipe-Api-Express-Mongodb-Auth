@@ -1,5 +1,26 @@
 const mongoose = require("mongoose");
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Origine:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The unique identifier for the origine.
+ *         origineId:
+ *           type: number
+ *           description: The unique identifier for the origine (category).
+ *         country:
+ *           type: string
+ *           description: The name of the country associated with the origine.
+ *       required:
+ *         - origineId
+ *         - country
+*/
+
 // Origine === Category
 const origineSchema = mongoose.Schema({
   origineId: {
@@ -13,7 +34,7 @@ const origineSchema = mongoose.Schema({
     required: [true, 'country name is required!'],
     trim: true,
   },
-  // image: ,
+  // Todo : I have to add an image  ,
 },
   { timestamps: true }
 );

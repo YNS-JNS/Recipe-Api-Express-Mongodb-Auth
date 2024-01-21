@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
-// Check if Id Recipe valid or not
+// TODO: Check if Id Recipe valid or not
 const recipeIdSchema = Joi.string().pattern(new RegExp('^[0-9a-fA-F]{24}$'));
 
-// Validation for creating a new recipe
+// TODO: Validation for creating a new recipe
 const createRecipeSchema = Joi.object(
     {
         name: Joi.string().required().min(3).max(100),
@@ -15,7 +15,7 @@ const createRecipeSchema = Joi.object(
     }
 )
 
-// Validation for creating a new recipe
+// TODO: Validation for creating a new recipe
 const updateRecipeSchema = Joi.object(
     {
         name: Joi.string().min(3).max(100),
@@ -24,7 +24,7 @@ const updateRecipeSchema = Joi.object(
         description: Joi.string(),
         published: Joi.boolean(),
     }
-).min(1); // Au moins un champ doit être présent
+).min(1); // TODO: Au moins un champ doit être présent
 /*
 la méthode min(1) est utilisée pour spécifier que l'objet doit avoir au moins un champ non vide. Ainsi, si tous les champs sont vides, la validation échouera.
 */
