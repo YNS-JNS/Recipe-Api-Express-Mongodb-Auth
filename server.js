@@ -1,19 +1,19 @@
-// Le point d'entrée principal de l'application où Express est configuré et le serveur est démarré.
+// * Le point d'entrée principal de l'application où Express est configuré et le serveur est démarré.
 
-// Importing packages : __________________________________________________________________________
+// * Importing packages : __________________________________________________________________________
 const express = require("express");
-const db = require("./app/models"); // Importing db object
-const logger = require("morgan")
+const db = require("./app/models"); // * Importing db object
+const logger = require("morgan");
 
 // -----------------------------------------------------------------------------------------------
-// cors: A middleware to manage resource sharing problems between different domains.             |
+// Todo: (cors): A middleware to manage resource sharing problems between different domains.             |
 // -----------------------------------------------------------------------------------------------
-// cors provides Express middleware to enable CORS with various options.
+// * cors provides Express middleware to enable CORS with various options.
 const cors = require("cors");
 
 // ________________________________________________________________________________________________
 
-// creates an Express application instance
+// * creates an Express application instance
 const app = express();
 
 // ________________________________________________________________________________________________
@@ -43,7 +43,7 @@ app.use(cors(corsOptions));
   Il extrait les données JSON du corps de la requête et les rend disponibles dans req.body. 
   Cela permet de manipuler facilement les données JSON envoyées dans le corps d'une requête.
 ------------------------------------------------------------------------------------------------ */
-// parse requests of content-type - application/json
+// Todo: parse requests of content-type - application/json
 app.use(express.json())
 
 /* -----------------------------------------------------------------------------------------------
@@ -54,23 +54,16 @@ app.use(express.json())
 ------------------------------------------------------------------------------------------------ */
 
 // parse requests of content-type - application/x-www-form-urlencoded
-// This middleware parses incoming requests with URL-encoded payloads (form submit HTML)
+// Todo: This middleware parses incoming requests with URL-encoded payloads (form submit HTML)
 app.use(express.urlencoded({ extended: true }));
 
 // Middleware morgan
 app.use(logger('dev'));
 
 // ________________________________________________________________________________________________
-// Connecting to MongoDb Atlas:
 
-// Deprecated
-// const connectionParams = {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// }
-
+// Todo: Connecting to MongoDb Atlas:
 db.mongoose
-  // .connect(db.url, connectionParams)
   .connect(db.url)
   .then(() => console.log("Connected to the database!"))
   .catch((err) => {
@@ -84,13 +77,16 @@ db.mongoose
 
 /* You can see that we use a controller from /controllers/tutorial.controller.js.
    We also need to include routes in server.js (right before app.listen()): */
-// Routes definition :
+// Todo: Routes definition :
 require("./app/routes/recipe.routes")(app);
 require("./app/routes/origine.routes")(app);
 require("./app/routes/user.routes")(app);
 
 // ________________________________________________________________________________________________
 
+// * Swagger:
+
+// Enable Swagger module’s in the API pipeline in server.js 
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const options = {
@@ -102,21 +98,23 @@ const options = {
       description: 'API documentation with Swagger',
     },
   },
-  apis: ['./routes/*.js'], // Path to the API routes with Swagger comments
+  apis: ['./app/routes/*.js'], // Path to the API routes with Swagger comments
 };
 
 const swaggerSpec = swaggerJSDoc(options);
-
 const swaggerUi = require('swagger-ui-express');
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
 // ________________________________________________________________________________________________
-// Configuration du port et démarrage du serveur :
-// Set port, listen for requests:
+
+// Todo: Configuration du port et démarrage du serveur :
+// * Set port, listen for requests:
 const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port : ${PORT}...`)
 })
+
 // ________________________________________________________________________________________________

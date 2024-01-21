@@ -6,7 +6,7 @@
     remove a Recipe: findByIdAndDelete(id)
     remove all Recipe: deleteMany()
     find all Recipe by name: find({ name: { $regex: new RegExp(name), $options: “i” } })
-These functions will be used in our Controller.
+    These functions will be used in our Controller.
 */
 
 /*
@@ -31,16 +31,8 @@ const { recipeIdSchema, createRecipeSchema, updateRecipeSchema } = require("../m
 
 // ________________________________________________________________________________________________
 
-// Create and Save a new recipe:
+// TODO: Create and Save a new recipe:
 exports.createRecipe = (req, res) => {
-
-    // Validation
-    /*
-    if (!req.body.name || !req.body.origine) {
-        res.status(400).json({ message: "Content can not be empty, name and origine are required fields!" })
-        return;
-    }
-    */
 
     const { error } = createRecipeSchema.validate(req.body);
 
@@ -50,16 +42,16 @@ exports.createRecipe = (req, res) => {
         });
     }
 
-    // Check if the origine exist or not
+    // * Check if the origine exist or not
     OrigineModel.findOne({ origineId: req.body.origine })
         .then((origine) => {
-            // If not exist
+            // * If not exist
             if (!origine) {
-                // If the origine doesn't exist, send an error response
+                // * If the origine doesn't exist, send an error response
                 return res.status(404).json({ message: "origine not found. Cannot create recipe." });
                 // return;
             }
-            // If the origine exists, create a new recipe
+            // * If the origine exists, create a new recipe
             /* We create an instance of the Model
             On crée une instance du Model
             Create a recipe */
@@ -71,7 +63,7 @@ exports.createRecipe = (req, res) => {
                 published: req.body.published ? req.body.published : false
             });
 
-            // Saving data in Mongodb:
+            // * Saving data in Mongodb:
             newRecipe.save()
                 .then(recipe => {
                     res.status(201).json({
@@ -101,10 +93,10 @@ exports.createRecipe = (req, res) => {
 // ________________________________________________________________________________________________
 
 // Retrieve objects (with condition)
-// Retrieve all recipes/ find by name from the database:
+// TODO: Retrieve all recipes/ find by name from the database:
 exports.findRecipesByName = (req, res) => {
 
-    // We use req.query.name to get query string from the Request and consider it as condition for findRecipesByName() method.
+    // * We use req.query.name to get query string from the Request and consider it as condition for findRecipesByName() method.
     const name = req.query.name; // Get Query name
     var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
@@ -132,7 +124,7 @@ exports.findRecipesByName = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Retrieve all recipes from the database:
+// TODO: Retrieve all recipes from the database:
 exports.findAllRecipes = (req, res) => {
 
     RecipeModel.find()
@@ -160,7 +152,7 @@ exports.findAllRecipes = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Find a single recipe with an id
+// TODO: Find a single recipe with an id
 exports.findOneRecipeById = (req, res) => {
 
     const { error: idError } = recipeIdSchema.validate(req.params.id)
@@ -194,10 +186,10 @@ exports.findOneRecipeById = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Update a recipe identified by the id in the request:
+// TODO: Update a recipe identified by the id in the request:
 exports.updateRecipeById = (req, res) => {
 
-    // Validation ID
+    // * Validation ID
     const { error: idError } = recipeIdSchema.validate(req.params.id);
 
     if (idError) {
@@ -226,18 +218,18 @@ exports.updateRecipeById = (req, res) => {
 
     const { id } = req.params;
 
-    // Nb: The {new: true} option in the findByIdAndUpdate() a method is used to return the modified document to the then() function instead of the original.
+    // * Nb: The {new: true} option in the findByIdAndUpdate() a method is used to return the modified document to the then() function instead of the original.
 
     RecipeModel.findByIdAndUpdate(id, value, { new: true, useFindAndModify: false })
         .then(recipe => {
-            // If recipe is not exist
+            // * If recipe is not exist
             if (!recipe) {
                 return res.status(404).json({
                     message: `Cannot update recipe with id=${id}. Maybe recipe was not found!`
                 }
                 )
             }
-            // Is exist: updated
+            // * Is exist: updated
             else {
                 res.status(200).json({
                     message: "recipe was updated successfully.",
@@ -254,7 +246,7 @@ exports.updateRecipeById = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Delete a recipe with the specified id:
+// TODO: Delete a recipe with the specified id:
 exports.deleteRecipeById = (req, res) => {
 
     const { error: idError } = recipeIdSchema.validate(req.params.id)
@@ -290,7 +282,7 @@ exports.deleteRecipeById = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Delete all recipes from the database:
+// TODO: Delete all recipes from the database:
 exports.deleteAllRecipes = (req, res) => {
 
     RecipeModel.deleteMany({})
@@ -311,7 +303,7 @@ exports.deleteAllRecipes = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Find all recipes with published = true:
+// TODO: Find all recipes with published = true:
 exports.findAllPublished = (req, res) => {
 
     RecipeModel.find({ published: true })
@@ -336,7 +328,7 @@ exports.findAllPublished = (req, res) => {
 
 // ________________________________________________________________________________________________
 
-// Get Recipes by origine id:
+// TODO: Get Recipes by origine id:
 
 exports.getRecipesByOrigine = (req, res) => {
 
