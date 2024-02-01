@@ -1,10 +1,12 @@
 # Recipe API
 
 Recipe API is a RESTful CRUD API built with Node.js, Express, and MongoDB for managing recipes.
+Auth system JWT & bcrypt
 
 ## Table of Contents
 
 - [Features](#features)
+- [Auth](#auth)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
