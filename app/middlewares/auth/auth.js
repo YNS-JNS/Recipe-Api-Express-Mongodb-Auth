@@ -1,13 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 /**
- * TODO: Authentication middleware for protecting routes using JWT.
- * @function
- * @async
+ * Authentication middleware for protecting routes using JWT.
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @param {Function} next - Express next function.
- * @returns {Promise<void>} - A Promise that resolves after processing.
 */
 
 exports.authMiddleware = (req, res, next) => {
@@ -21,6 +18,7 @@ exports.authMiddleware = (req, res, next) => {
         if (!token) {
             return res.status(401).json({
                 message: "Unauthorized"
+                // message: "No token provided!"
             })
         }
 
